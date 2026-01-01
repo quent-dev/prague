@@ -206,6 +206,46 @@ export const useSupabase = () => {
     }
   }, [setLoading, setError, isOnline, addPendingOperation])
 
+  // Update weekly entry
+  const updateWeeklyEntry = useCallback(async (id: string, updates: Partial<WeeklyEntry>) => {
+    if (!sessionKey) throw new Error('No session key')
+    
+    setLoading(true)
+    try {
+      if (isOnline) {
+        const { data, error } = await supabase
+          .from('weekly_entries')
+          .update({
+            ...updates,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', id)
+          .eq('session_id', sessionKey)
+          .select()
+          .single()
+
+        if (error) throw error
+        return data as WeeklyEntry
+      } else {
+        // Add to pending operations when offline
+        addPendingOperation({
+          id: `update_weekly_${id}_${Date.now()}`,
+          type: 'UPDATE',
+          table: 'weekly_entries',
+          data: { id, ...updates },
+          timestamp: new Date().toISOString(),
+          retryCount: 0
+        })
+        throw new Error('Offline - update queued for sync')
+      }
+    } catch (error: any) {
+      setError(error.message)
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }, [setLoading, setError, isOnline, addPendingOperation])
+
   // Goals config
   const getGoalsConfig = useCallback(async (monthYear: string) => {
     if (!sessionKey) throw new Error('No session key')
@@ -309,6 +349,7 @@ export const useSupabase = () => {
     // Weekly entries
     getWeeklyEntries,
     createWeeklyEntry,
+    updateWeeklyEntry,
     
     // Goals config
     getGoalsConfig,

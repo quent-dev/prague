@@ -16,7 +16,14 @@ export const useOptimistic = () => {
   } = useAppStore()
   
   const { isOnline, addPendingOperation } = useSyncStore()
-  const supabase = useSupabase()
+  const { 
+    createDailyEntry: createDailyEntryDB, 
+    updateDailyEntry: updateDailyEntryDB, 
+    createWeeklyEntry: createWeeklyEntryDB,
+    updateWeeklyEntry: updateWeeklyEntryDB,
+    createGoalsConfig: createGoalsConfigDB,
+    updateGoalsConfig: updateGoalsConfigDB 
+  } = useSupabase()
 
   // Optimistic daily entry creation
   const createDailyEntryOptimistic = useCallback(async (
@@ -36,7 +43,7 @@ export const useOptimistic = () => {
     try {
       if (isOnline) {
         // Try to sync with server
-        const serverEntry = await supabase.createDailyEntry(entry)
+        const serverEntry = await createDailyEntryDB(entry)
         
         if (serverEntry) {
           // Replace optimistic entry with server entry
@@ -68,7 +75,7 @@ export const useOptimistic = () => {
     }
 
     return optimisticEntry
-  }, [addDailyEntry, updateDailyEntry, isOnline, addPendingOperation, supabase, setError])
+  }, [addDailyEntry, updateDailyEntry, isOnline, addPendingOperation, createDailyEntryDB, setError])
 
   // Optimistic daily entry update
   const updateDailyEntryOptimistic = useCallback(async (
@@ -85,7 +92,7 @@ export const useOptimistic = () => {
 
     try {
       if (isOnline) {
-        const serverEntry = await supabase.updateDailyEntry(id, updates)
+        const serverEntry = await updateDailyEntryDB(id, updates)
         
         if (serverEntry) {
           // Update with server response
@@ -105,7 +112,7 @@ export const useOptimistic = () => {
       // TODO: Implement rollback mechanism
       setError(error.message)
     }
-  }, [updateDailyEntry, isOnline, addPendingOperation, supabase, setError])
+  }, [updateDailyEntry, isOnline, addPendingOperation, updateDailyEntryDB, setError])
 
   // Optimistic weekly entry creation
   const createWeeklyEntryOptimistic = useCallback(async (
@@ -122,7 +129,7 @@ export const useOptimistic = () => {
 
     try {
       if (isOnline) {
-        const serverEntry = await supabase.createWeeklyEntry(entry)
+        const serverEntry = await createWeeklyEntryDB(entry)
         
         if (serverEntry) {
           updateWeeklyEntry(optimisticEntry.id, serverEntry)
@@ -146,7 +153,7 @@ export const useOptimistic = () => {
     }
 
     return optimisticEntry
-  }, [addWeeklyEntry, updateWeeklyEntry, isOnline, addPendingOperation, supabase, setError])
+  }, [addWeeklyEntry, updateWeeklyEntry, isOnline, addPendingOperation, createWeeklyEntryDB, setError])
 
   // Optimistic goals config creation/update
   const createGoalsConfigOptimistic = useCallback(async (
@@ -163,7 +170,7 @@ export const useOptimistic = () => {
 
     try {
       if (isOnline) {
-        const serverConfig = await supabase.createGoalsConfig(config)
+        const serverConfig = await createGoalsConfigDB(config)
         
         if (serverConfig) {
           updateGoalsConfig(optimisticConfig.id, serverConfig)
@@ -184,7 +191,7 @@ export const useOptimistic = () => {
     }
 
     return optimisticConfig
-  }, [addGoalsConfig, updateGoalsConfig, isOnline, addPendingOperation, supabase, setError])
+  }, [addGoalsConfig, updateGoalsConfig, isOnline, addPendingOperation, createGoalsConfigDB, setError])
 
   // Optimistic goals config update
   const updateGoalsConfigOptimistic = useCallback(async (
@@ -200,7 +207,7 @@ export const useOptimistic = () => {
 
     try {
       if (isOnline) {
-        const serverConfig = await supabase.updateGoalsConfig(id, updates)
+        const serverConfig = await updateGoalsConfigDB(id, updates)
         
         if (serverConfig) {
           updateGoalsConfig(id, serverConfig)
@@ -218,7 +225,7 @@ export const useOptimistic = () => {
     } catch (error: any) {
       setError(error.message)
     }
-  }, [updateGoalsConfig, isOnline, addPendingOperation, supabase, setError])
+  }, [updateGoalsConfig, isOnline, addPendingOperation, updateGoalsConfigDB, setError])
 
   // Optimistic weekly entry update
   const updateWeeklyEntryOptimistic = useCallback(async (
@@ -234,8 +241,7 @@ export const useOptimistic = () => {
 
     try {
       if (isOnline) {
-        // Note: We'd need to add updateWeeklyEntry to supabase client
-        // For now, just update locally
+        await updateWeeklyEntryDB(id, updates)
       } else {
         addPendingOperation({
           id: `update_weekly_${id}_${Date.now()}`,
@@ -249,7 +255,7 @@ export const useOptimistic = () => {
     } catch (error: any) {
       setError(error.message)
     }
-  }, [updateWeeklyEntry, isOnline, addPendingOperation, setError])
+  }, [updateWeeklyEntry, updateWeeklyEntryDB, isOnline, addPendingOperation, setError])
 
   return {
     createDailyEntryOptimistic,
