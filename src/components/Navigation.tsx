@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { showInstallPrompt, canInstall } from '../utils/pwa'
 
 export const Navigation = () => {
   const navItems = [
@@ -7,6 +8,14 @@ export const Navigation = () => {
     { path: '/calendar', label: 'Calendar', icon: '📅' },
     { path: '/settings', label: 'Settings', icon: '⚙️' },
   ]
+
+  const handleInstall = async () => {
+    if (canInstall()) {
+      await showInstallPrompt()
+    } else {
+      alert('Install prompt not available yet. Try interacting with the app more or check browser menu for "Add to Home Screen"')
+    }
+  }
 
   return (
     <nav 
@@ -33,6 +42,16 @@ export const Navigation = () => {
             <span className="text-[10px] sm:text-xs font-medium leading-tight truncate w-full text-center">{label}</span>
           </NavLink>
         ))}
+      </div>
+      
+      {/* PWA Install Button - temporary for testing */}
+      <div className="mt-2 text-center">
+        <button
+          onClick={handleInstall}
+          className="text-xs text-blue-600 underline"
+        >
+          Install App
+        </button>
       </div>
     </nav>
   )
