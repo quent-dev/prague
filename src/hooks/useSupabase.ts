@@ -46,6 +46,23 @@ export const useSupabase = () => {
     }
   }, [setError])
 
+  // Get session by pairing code (first 8 chars of session key)
+  const getSessionByPairingCode = useCallback(async (pairingCode: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('sessions')
+        .select('*')
+        .ilike('session_key', `${pairingCode.toLowerCase()}%`)
+        .single()
+
+      if (error) throw error
+      return data as Session
+    } catch (error: any) {
+      setError(error.message)
+      throw error
+    }
+  }, [setError])
+
   // Daily entries
   const getDailyEntries = useCallback(async () => {
     if (!sessionKey) throw new Error('No session key')
@@ -282,6 +299,7 @@ export const useSupabase = () => {
     // Session
     createSession,
     getSession,
+    getSessionByPairingCode,
     
     // Daily entries
     getDailyEntries,

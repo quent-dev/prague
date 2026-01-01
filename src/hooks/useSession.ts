@@ -15,7 +15,7 @@ export const useSession = () => {
     initialize
   } = useAppStore()
   
-  const { createSession, getSession } = useSupabase()
+  const { createSession, getSession, getSessionByPairingCode } = useSupabase()
 
   // Initialize session on app load
   useEffect(() => {
@@ -86,6 +86,26 @@ export const useSession = () => {
     }
   }, [getSession, setSession, setLoading, setError])
 
+  // Join session using pairing code
+  const joinSessionByCode = useCallback(async (pairingCode: string) => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      const session = await getSessionByPairingCode(pairingCode)
+      
+      storage.setSessionKey(session.session_key)
+      setSession(session, session.session_key)
+      
+      return session
+    } catch (error: any) {
+      setError(error.message)
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }, [getSessionByPairingCode, setSession, setLoading, setError])
+
   // Logout/clear session
   const logout = useCallback(() => {
     storage.clearSessionKey()
@@ -104,6 +124,7 @@ export const useSession = () => {
     isInitialized,
     createNewSession,
     joinSession,
+    joinSessionByCode,
     logout,
     getPairingCode,
     hasSession: !!currentSession && !!sessionKey,

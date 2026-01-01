@@ -13,7 +13,7 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   
-  const { createNewSession, joinSession } = useSession()
+  const { createNewSession, joinSessionByCode } = useSession()
 
   const handleCreateSession = async () => {
     setIsLoading(true)
@@ -49,9 +49,8 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
         // Not JSON, treat as regular code
       }
       
-      // Convert 8-digit code back to full session key format
-      const sessionKey = pairingCode.toLowerCase().padEnd(30, 'x') + Math.random().toString(36).substring(2)
-      await joinSession(sessionKey)
+      // Use the pairing code directly to find the session
+      await joinSessionByCode(pairingCode)
       onSessionReady()
     } catch (err: any) {
       setError(err.message || 'Failed to join session')
