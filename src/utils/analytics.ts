@@ -76,7 +76,6 @@ export const calculateHabitStreak = (
   
   // Calculate streaks (from most recent day backwards)
   const today = new Date()
-  const todayString = format(today, 'yyyy-MM-dd')
   
   for (let i = 0; i < totalDays; i++) {
     const checkDate = format(subDays(today, i), 'yyyy-MM-dd')
