@@ -65,22 +65,22 @@ export const SyncTest = () => {
   }
 
   return (
-    <div className="bg-white rounded-lg p-4 shadow-sm">
-      <h3 className="font-medium text-gray-900 mb-4">🔄 Sync Test</h3>
+    <div className="bg-dark-card border border-dark-border rounded-lg p-4">
+      <h3 className="font-medium text-dark-text-primary mb-4">🔄 Sync Test</h3>
       
       <div className="space-y-4">
         <button
           onClick={runSyncTest}
           disabled={isTestingSync || !currentSession}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium disabled:opacity-50"
+          className="w-full bg-accent-primary text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium disabled:opacity-50"
         >
           {isTestingSync ? 'Testing...' : 'Test Cross-Device Sync'}
         </button>
 
         {testResult && (
-          <div className="border border-gray-200 rounded-lg p-3 bg-gray-50">
-            <div className="text-xs font-medium text-gray-600 mb-2">Test Results:</div>
-            <div className="font-mono text-xs text-gray-700">
+          <div className="border border-dark-border rounded-lg p-3 bg-dark-surface">
+            <div className="text-xs font-medium text-dark-text-secondary mb-2">Test Results:</div>
+            <div className="font-mono text-xs text-dark-text-secondary">
               {formatSyncReport(testResult)}
             </div>
           </div>
@@ -89,25 +89,25 @@ export const SyncTest = () => {
         {/* Real-time sync status */}
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="text-center">
-            <div className={`w-3 h-3 rounded-full mx-auto mb-1 ${isOnline ? 'bg-green-500' : 'bg-red-500'}`} />
-            <div className="text-xs text-gray-600">
+            <div className={`w-3 h-3 rounded-full mx-auto mb-1 ${isOnline ? 'bg-accent-success' : 'bg-accent-error'}`} />
+            <div className="text-xs text-dark-text-secondary">
               {isOnline ? 'Online' : 'Offline'}
             </div>
           </div>
           
           <div className="text-center">
             <div className={`w-3 h-3 rounded-full mx-auto mb-1 ${
-              pendingOperations.length === 0 ? 'bg-green-500' : 'bg-yellow-500'
+              pendingOperations.length === 0 ? 'bg-accent-success' : 'bg-accent-warning'
             }`} />
-            <div className="text-xs text-gray-600">
+            <div className="text-xs text-dark-text-secondary">
               {pendingOperations.length} Pending
             </div>
           </div>
         </div>
 
         {/* Instructions */}
-        <div className="text-xs text-gray-500 space-y-1">
-          <p><strong>To test cross-device sync:</strong></p>
+        <div className="text-xs text-dark-text-muted space-y-1">
+          <p><strong className="text-dark-text-secondary">To test cross-device sync:</strong></p>
           <ol className="list-decimal list-inside space-y-1 ml-2">
             <li>Run this test on your first device</li>
             <li>Note your pairing code in Settings</li>

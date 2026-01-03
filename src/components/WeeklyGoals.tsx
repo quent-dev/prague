@@ -27,29 +27,49 @@ export const WeeklyGoals = ({ currentDate }: WeeklyGoalsProps) => {
     setFamilyHours(weekEntry?.family_house_hours || 0)
   }, [weekEntry])
 
-  const handleSaveWeekly = async () => {
-    if (!currentSession) return
-
-    setIsUpdating(true)
-    try {
-      const entryData = {
-        session_id: currentSession.id,
-        week_start_date: weekStartDate,
-        work_blockers_unlocked: workBlockers,
-        family_house_hours: familyHours,
-      }
-
-      if (weekEntry) {
-        await updateWeeklyEntryOptimistic(weekEntry.id, entryData)
-      } else {
-        await createWeeklyEntryOptimistic(entryData)
-      }
-    } catch (error) {
-      console.error('Failed to save weekly goals:', error)
-    } finally {
-      setIsUpdating(false)
+  // Auto-save when values change (with debounce)
+  useEffect(() => {
+    // Skip auto-save on initial load or when values are being set from server
+    const initialWorkBlockers = weekEntry?.work_blockers_unlocked || 0
+    const initialFamilyHours = weekEntry?.family_house_hours || 0
+    
+    // Only trigger if values have actually changed from the server state
+    const hasChanges = workBlockers !== initialWorkBlockers || familyHours !== initialFamilyHours
+    
+    if (!hasChanges || !currentSession) {
+      return
     }
-  }
+
+    const timeoutId = setTimeout(async () => {
+      console.log('Auto-saving weekly goals:', { workBlockers, familyHours, weekEntry })
+      setIsUpdating(true)
+      
+      try {
+        const entryData = {
+          session_id: currentSession.id,
+          week_start_date: weekStartDate,
+          work_blockers_unlocked: workBlockers,
+          family_house_hours: familyHours,
+        }
+
+        if (weekEntry) {
+          console.log('Updating existing weekly entry:', weekEntry.id)
+          await updateWeeklyEntryOptimistic(weekEntry.id, entryData)
+        } else {
+          console.log('Creating new weekly entry')
+          await createWeeklyEntryOptimistic(entryData)
+        }
+        console.log('Weekly goals auto-save completed')
+      } catch (error) {
+        console.error('Failed to auto-save weekly goals:', error)
+      } finally {
+        setIsUpdating(false)
+      }
+    }, 1500) // Increased debounce to 1.5 seconds
+
+    return () => clearTimeout(timeoutId)
+  }, [workBlockers, familyHours, weekEntry?.id, weekEntry?.work_blockers_unlocked, weekEntry?.family_house_hours, currentSession, weekStartDate, updateWeeklyEntryOptimistic, createWeeklyEntryOptimistic])
+
 
   // Get week range display
   const weekEnd = format(addDays(new Date(weekStartDate), 6), 'MMM d')
@@ -114,18 +134,20 @@ export const WeeklyGoals = ({ currentDate }: WeeklyGoalsProps) => {
           </div>
         </div>
 
-        {/* Save Button */}
-        <button
-          type="button"
-          onClick={handleSaveWeekly}
-          disabled={isUpdating}
-          className="w-full bg-accent-success text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50 flex items-center justify-center space-x-2"
-        >
-          {isUpdating && (
+        {/* Auto-save indicator */}
+        {isUpdating && (
+          <div className="flex items-center justify-center space-x-2 py-2 text-accent-primary">
             <div className="spinner w-4 h-4" />
-          )}
-          <span>{isUpdating ? 'Saving...' : 'Update Weekly Goals'}</span>
-        </button>
+            <span className="text-sm">Auto-saving...</span>
+          </div>
+        )}
+        
+        {/* Success feedback */}
+        {!isUpdating && (workBlockers > 0 || familyHours > 0) && (
+          <div className="text-center py-1">
+            <span className="text-xs text-accent-success">✓ Changes saved automatically</span>
+          </div>
+        )}
 
         {/* Progress Indicators */}
         <div className="pt-2 border-t border-dark-border">

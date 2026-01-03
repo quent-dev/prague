@@ -212,21 +212,7 @@ export const useSupabase = () => {
     
     setLoading(true)
     try {
-      if (isOnline) {
-        const { data, error } = await supabase
-          .from('weekly_entries')
-          .update({
-            ...updates,
-            updated_at: new Date().toISOString()
-          })
-          .eq('id', id)
-          .eq('session_id', sessionKey)
-          .select()
-          .single()
-
-        if (error) throw error
-        return data as WeeklyEntry
-      } else {
+      if (!isOnline) {
         // Add to pending operations when offline
         addPendingOperation({
           id: `update_weekly_${id}_${Date.now()}`,
@@ -236,15 +222,29 @@ export const useSupabase = () => {
           timestamp: new Date().toISOString(),
           retryCount: 0
         })
-        throw new Error('Offline - update queued for sync')
+        return null // Return null instead of throwing for offline operations
       }
+
+      const { data, error } = await supabase
+        .from('weekly_entries')
+        .update({
+          ...updates,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', id)
+        .eq('session_id', sessionKey)
+        .select()
+        .single()
+
+      if (error) throw error
+      return data as WeeklyEntry
     } catch (error: any) {
       setError(error.message)
       throw error
     } finally {
       setLoading(false)
     }
-  }, [setLoading, setError, isOnline, addPendingOperation])
+  }, [sessionKey, setLoading, setError, isOnline, addPendingOperation])
 
   // Goals config
   const getGoalsConfig = useCallback(async (monthYear: string) => {

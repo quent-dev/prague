@@ -241,7 +241,12 @@ export const useOptimistic = () => {
 
     try {
       if (isOnline) {
-        await updateWeeklyEntryDB(id, updates)
+        const serverEntry = await updateWeeklyEntryDB(id, updates)
+        
+        if (serverEntry) {
+          // Update with server response to ensure consistency
+          updateWeeklyEntry(id, serverEntry)
+        }
       } else {
         addPendingOperation({
           id: `update_weekly_${id}_${Date.now()}`,
@@ -253,6 +258,7 @@ export const useOptimistic = () => {
         })
       }
     } catch (error: any) {
+      // TODO: Implement rollback mechanism
       setError(error.message)
     }
   }, [updateWeeklyEntry, updateWeeklyEntryDB, isOnline, addPendingOperation, setError])

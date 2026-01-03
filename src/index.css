@@ -41,13 +41,18 @@
   
   /* Form elements dark theme */
   input, textarea, select {
-    background-color: var(--color-dark-surface);
-    border-color: var(--color-dark-border);
-    color: var(--color-dark-text-primary);
+    background-color: var(--color-dark-surface) !important;
+    border-color: var(--color-dark-border) !important;
+    color: var(--color-dark-text-primary) !important;
   }
   
   input::placeholder, textarea::placeholder {
-    color: var(--color-dark-text-muted);
+    color: var(--color-dark-text-muted) !important;
+    opacity: 1 !important;
+  }
+  
+  input:focus::placeholder, textarea:focus::placeholder {
+    opacity: 0.5 !important;
   }
   
   /* Scrollbar styling for dark theme */
