@@ -26,10 +26,10 @@ export const Calendar = () => {
   return (
     <div className="p-4 pb-20">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Calendar View</h1>
+        <h1 className="text-2xl font-bold text-dark-text-primary">Calendar View</h1>
         <button
           onClick={handleGoToDaily}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+          className="px-4 py-2 bg-accent-primary text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
         >
           Go to Daily Log
         </button>
@@ -44,8 +44,8 @@ export const Calendar = () => {
       </div>
 
       {/* Selected Date Summary */}
-      <div className="bg-white rounded-lg p-4 shadow-sm">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">
+      <div className="bg-dark-card border border-dark-border rounded-lg p-4">
+        <h3 className="text-lg font-semibold text-dark-text-primary mb-4">
           {format(new Date(selectedDate), 'EEEE, MMMM d, yyyy')}
         </h3>
 
@@ -53,16 +53,16 @@ export const Calendar = () => {
           <div className="space-y-4">
             {/* Completion Score */}
             <div className="text-center mb-4">
-              <div className="text-3xl font-bold text-blue-600">
+              <div className="text-3xl font-bold text-accent-primary">
                 {selectedGoalStatus.completionScore}/9
               </div>
-              <div className="text-sm text-gray-600">Goals Completed</div>
+              <div className="text-sm text-dark-text-secondary">Goals Completed</div>
               <div className={`text-sm font-medium ${
-                selectedGoalStatus.completionScore >= 7 ? 'text-green-600' :
-                selectedGoalStatus.completionScore >= 5 ? 'text-yellow-600' :
-                selectedGoalStatus.completionScore >= 3 ? 'text-orange-600' :
-                selectedGoalStatus.completionScore >= 1 ? 'text-red-600' :
-                'text-gray-600'
+                selectedGoalStatus.completionScore >= 7 ? 'text-accent-success' :
+                selectedGoalStatus.completionScore >= 5 ? 'text-accent-warning' :
+                selectedGoalStatus.completionScore >= 3 ? 'text-orange-400' :
+                selectedGoalStatus.completionScore >= 1 ? 'text-accent-error' :
+                'text-dark-text-muted'
               }`}>
                 {selectedGoalStatus.completionScore >= 7 ? 'Excellent Day! 🌟' :
                  selectedGoalStatus.completionScore >= 5 ? 'Good Progress 👍' :
@@ -75,10 +75,10 @@ export const Calendar = () => {
             {/* Goal Details Grid */}
             <div className="grid grid-cols-2 gap-3 text-sm">
               {/* Workouts */}
-              <div className={`p-3 rounded-lg ${
+              <div className={`p-3 rounded-lg border ${
                 (selectedGoalStatus.strengthWorkout || selectedGoalStatus.otherWorkout) 
-                  ? 'bg-green-100 text-green-800' 
-                  : 'bg-red-100 text-red-800'
+                  ? 'bg-green-900/20 text-accent-success border-accent-success/30' 
+                  : 'bg-red-900/20 text-accent-error border-accent-error/30'
               }`}>
                 <div className="font-medium">💪 Workout</div>
                 <div className="text-xs">
@@ -90,8 +90,8 @@ export const Calendar = () => {
               </div>
 
               {/* Reading */}
-              <div className={`p-3 rounded-lg ${
-                selectedGoalStatus.reading ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+              <div className={`p-3 rounded-lg border ${
+                selectedGoalStatus.reading ? 'bg-green-900/20 text-accent-success border-accent-success/30' : 'bg-red-900/20 text-accent-error border-accent-error/30'
               }`}>
                 <div className="font-medium">📚 Reading</div>
                 <div className="text-xs">
@@ -100,12 +100,12 @@ export const Calendar = () => {
               </div>
 
               {/* Supplements */}
-              <div className={`p-3 rounded-lg ${
+              <div className={`p-3 rounded-lg border ${
                 (selectedGoalStatus.supplementsMorning && selectedGoalStatus.supplementsNight)
-                  ? 'bg-green-100 text-green-800' 
+                  ? 'bg-green-900/20 text-accent-success border-accent-success/30' 
                   : (selectedGoalStatus.supplementsMorning || selectedGoalStatus.supplementsNight)
-                  ? 'bg-yellow-100 text-yellow-800'
-                  : 'bg-red-100 text-red-800'
+                  ? 'bg-yellow-900/20 text-accent-warning border-accent-warning/30'
+                  : 'bg-red-900/20 text-accent-error border-accent-error/30'
               }`}>
                 <div className="font-medium">💊 Supplements</div>
                 <div className="text-xs">
@@ -117,8 +117,8 @@ export const Calendar = () => {
               </div>
 
               {/* Dog Training */}
-              <div className={`p-3 rounded-lg ${
-                selectedGoalStatus.dogTraining ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+              <div className={`p-3 rounded-lg border ${
+                selectedGoalStatus.dogTraining ? 'bg-green-900/20 text-accent-success border-accent-success/30' : 'bg-red-900/20 text-accent-error border-accent-error/30'
               }`}>
                 <div className="font-medium">🐕 Dog Training</div>
                 <div className="text-xs">
@@ -127,8 +127,8 @@ export const Calendar = () => {
               </div>
 
               {/* Weight Tracking */}
-              <div className={`p-3 rounded-lg ${
-                selectedGoalStatus.hasWeight ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+              <div className={`p-3 rounded-lg border ${
+                selectedGoalStatus.hasWeight ? 'bg-green-900/20 text-accent-success border-accent-success/30' : 'bg-red-900/20 text-accent-error border-accent-error/30'
               }`}>
                 <div className="font-medium">⚖️ Weight</div>
                 <div className="text-xs">
@@ -137,8 +137,8 @@ export const Calendar = () => {
               </div>
 
               {/* Sleep */}
-              <div className={`p-3 rounded-lg ${
-                selectedGoalStatus.hasSleep ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+              <div className={`p-3 rounded-lg border ${
+                selectedGoalStatus.hasSleep ? 'bg-green-900/20 text-accent-success border-accent-success/30' : 'bg-red-900/20 text-accent-error border-accent-error/30'
               }`}>
                 <div className="font-medium">😴 Sleep</div>
                 <div className="text-xs">
@@ -147,8 +147,8 @@ export const Calendar = () => {
               </div>
 
               {/* Calories */}
-              <div className={`p-3 rounded-lg ${
-                selectedGoalStatus.hasCalories ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+              <div className={`p-3 rounded-lg border ${
+                selectedGoalStatus.hasCalories ? 'bg-green-900/20 text-accent-success border-accent-success/30' : 'bg-red-900/20 text-accent-error border-accent-error/30'
               }`}>
                 <div className="font-medium">🍽️ Calories</div>
                 <div className="text-xs">
@@ -158,29 +158,29 @@ export const Calendar = () => {
             </div>
 
             {/* Quick Action */}
-            <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="mt-4 pt-4 border-t border-dark-border">
               <button
                 onClick={() => {
                   setCurrentDate(selectedDate)
                   handleGoToDaily()
                 }}
-                className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+                className="w-full bg-accent-primary text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
               >
                 {selectedEntry ? 'Edit This Day' : 'Log Data for This Day'}
               </button>
             </div>
           </div>
         ) : (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-dark-text-muted">
             <div className="text-4xl mb-2">📅</div>
-            <p className="font-medium">No data logged for this day</p>
+            <p className="font-medium text-dark-text-secondary">No data logged for this day</p>
             <p className="text-sm mb-4">Start tracking your progress!</p>
             <button
               onClick={() => {
                 setCurrentDate(selectedDate)
                 handleGoToDaily()
               }}
-              className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+              className="bg-accent-primary text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
             >
               Log Data for This Day
             </button>

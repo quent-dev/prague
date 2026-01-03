@@ -11,7 +11,7 @@ export const Navigation = () => {
 
   return (
     <nav 
-      className="bg-white border-t border-gray-200 px-2 sm:px-4 py-2 safe-area-bottom"
+      className="bg-dark-card border-t border-dark-border px-2 sm:px-4 py-2 safe-area-bottom"
       role="navigation"
       aria-label="Main navigation"
     >
@@ -23,8 +23,8 @@ export const Navigation = () => {
             className={({ isActive }) =>
               `flex flex-col items-center py-2 px-2 sm:px-3 rounded-lg transition-all duration-200 min-w-0 flex-1 ${
                 isActive
-                  ? 'text-blue-600 bg-blue-50 scale-105'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 hover:scale-105'
+                  ? 'text-accent-primary bg-accent-primary/10 scale-105'
+                  : 'text-dark-text-muted hover:text-dark-text-primary hover:bg-dark-surface hover:scale-105'
               }`
             }
             aria-label={`Navigate to ${label}`}

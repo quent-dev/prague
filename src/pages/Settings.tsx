@@ -119,52 +119,52 @@ export const Settings = () => {
   }
   return (
     <div className="p-4 pb-20">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Settings</h1>
+      <h1 className="text-2xl font-bold text-dark-text-primary mb-6">Settings</h1>
       
       {/* Status Messages */}
       {exportStatus && (
-        <div className="mb-4 p-3 bg-blue-50 text-blue-800 rounded-lg text-sm">
+        <div className="mb-4 p-3 bg-blue-900/20 border border-accent-primary/30 text-accent-primary rounded-lg text-sm">
           {exportStatus}
         </div>
       )}
       
       {importStatus && (
-        <div className="mb-4 p-3 bg-yellow-50 text-yellow-800 rounded-lg text-sm">
+        <div className="mb-4 p-3 bg-yellow-900/20 border border-accent-warning/30 text-accent-warning rounded-lg text-sm">
           {importStatus}
         </div>
       )}
       
       <div className="space-y-4">
         {/* Goal Configuration */}
-        <div className="bg-white rounded-lg shadow-sm">
+        <div className="bg-dark-card border border-dark-border rounded-lg">
           <Link
             to="/goals"
-            className="flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
+            className="flex items-center justify-between p-4 hover:bg-dark-surface transition-colors"
           >
             <div className="flex items-center space-x-3">
               <span className="text-2xl">🎯</span>
               <div>
-                <h3 className="font-medium text-gray-900">Goal Configuration</h3>
-                <p className="text-sm text-gray-600">Set your monthly goals and targets</p>
+                <h3 className="font-medium text-dark-text-primary">Goal Configuration</h3>
+                <p className="text-sm text-dark-text-secondary">Set your monthly goals and targets</p>
               </div>
             </div>
-            <span className="text-gray-400">→</span>
+            <span className="text-dark-text-muted">→</span>
           </Link>
         </div>
 
         {/* Data Export */}
-        <div className="bg-white rounded-lg shadow-sm">
+        <div className="bg-dark-card border border-dark-border rounded-lg">
           <div className="flex items-center justify-between p-4">
             <div className="flex items-center space-x-3">
               <span className="text-2xl">📤</span>
               <div>
-                <h3 className="font-medium text-gray-900">Export Data</h3>
-                <p className="text-sm text-gray-600">Download your data as JSON</p>
+                <h3 className="font-medium text-dark-text-primary">Export Data</h3>
+                <p className="text-sm text-dark-text-secondary">Download your data as JSON</p>
               </div>
             </div>
             <button 
               onClick={handleExport}
-              className="text-blue-600 text-sm font-medium hover:text-blue-700"
+              className="text-accent-primary text-sm font-medium hover:text-blue-400"
             >
               Export
             </button>
@@ -172,18 +172,18 @@ export const Settings = () => {
         </div>
 
         {/* Data Import */}
-        <div className="bg-white rounded-lg shadow-sm">
+        <div className="bg-dark-card border border-dark-border rounded-lg">
           <div className="flex items-center justify-between p-4">
             <div className="flex items-center space-x-3">
               <span className="text-2xl">📥</span>
               <div>
-                <h3 className="font-medium text-gray-900">Import Data</h3>
-                <p className="text-sm text-gray-600">Restore from backup file</p>
+                <h3 className="font-medium text-dark-text-primary">Import Data</h3>
+                <p className="text-sm text-dark-text-secondary">Restore from backup file</p>
               </div>
             </div>
             <button 
               onClick={handleImport}
-              className="text-blue-600 text-sm font-medium hover:text-blue-700"
+              className="text-accent-primary text-sm font-medium hover:text-blue-400"
             >
               Import
             </button>
@@ -197,28 +197,28 @@ export const Settings = () => {
         <SyncTest />
 
         {/* Session Info */}
-        <div className="bg-white rounded-lg p-4 shadow-sm">
-          <h3 className="font-medium text-gray-900 mb-2">📱 Session Information</h3>
+        <div className="bg-dark-card border border-dark-border rounded-lg p-4">
+          <h3 className="font-medium text-dark-text-primary mb-2">📱 Session Information</h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-gray-600">Session Status:</span>
-              <span className="text-green-600 font-medium">Connected</span>
+              <span className="text-dark-text-secondary">Session Status:</span>
+              <span className="text-accent-success font-medium">Connected</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Sync Status:</span>
-              <span className="text-blue-600 font-medium">Online</span>
+              <span className="text-dark-text-secondary">Sync Status:</span>
+              <span className="text-accent-primary font-medium">Online</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Last Sync:</span>
-              <span className="text-gray-600">Just now</span>
+              <span className="text-dark-text-secondary">Last Sync:</span>
+              <span className="text-dark-text-secondary">Just now</span>
             </div>
           </div>
         </div>
 
         {/* About */}
-        <div className="bg-white rounded-lg p-4 shadow-sm">
-          <h3 className="font-medium text-gray-900 mb-2">ℹ️ About Prague Tracker</h3>
-          <div className="text-sm text-gray-600 space-y-1">
+        <div className="bg-dark-card border border-dark-border rounded-lg p-4">
+          <h3 className="font-medium text-dark-text-primary mb-2">ℹ️ About Prague Tracker</h3>
+          <div className="text-sm text-dark-text-secondary space-y-1">
             <p>Version: 1.0.0</p>
             <p>A personal health and lifestyle tracking app for your 30-day challenge.</p>
             <p className="mt-2 text-xs">Track workouts, reading, sleep, nutrition, and more across all your devices.</p>

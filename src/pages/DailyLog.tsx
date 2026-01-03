@@ -185,7 +185,7 @@ export const DailyLog = () => {
         <button
           type="button"
           onClick={() => handleDateChange('prev')}
-          className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors tap-target focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-2 rounded-lg bg-dark-surface hover:bg-dark-card border border-dark-border text-dark-text-primary transition-colors tap-target focus:outline-none focus:ring-2 focus:ring-accent-primary"
           aria-label={`Previous day, ${format(createLocalDate(format(subDays(createLocalDate(currentDate), 1), 'yyyy-MM-dd')), 'EEEE, MMMM d')}`}
         >
           <span className="sr-only">Previous day</span>
@@ -195,19 +195,19 @@ export const DailyLog = () => {
         </button>
         
         <div className="text-center">
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+          <h1 className="text-xl sm:text-2xl font-bold text-dark-text-primary">
             {format(createLocalDate(currentDate), 'EEEE')}
           </h1>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-dark-text-secondary">
             {format(createLocalDate(currentDate), 'MMMM d, yyyy')}
           </p>
-          {isToday && <span className="text-xs text-blue-600 font-medium">Today</span>}
+          {isToday && <span className="text-xs text-accent-primary font-medium">Today</span>}
         </div>
         
         <button
           type="button"
           onClick={() => handleDateChange('next')}
-          className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors tap-target focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-2 rounded-lg bg-dark-surface hover:bg-dark-card border border-dark-border text-dark-text-primary transition-colors tap-target focus:outline-none focus:ring-2 focus:ring-accent-primary"
           aria-label={`Next day, ${format(createLocalDate(format(addDays(createLocalDate(currentDate), 1), 'yyyy-MM-dd')), 'EEEE, MMMM d')}`}
         >
           <span className="sr-only">Next day</span>
@@ -243,8 +243,8 @@ export const DailyLog = () => {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Workout Section */}
-        <div className="bg-white rounded-lg p-4 sm:p-6 shadow-sm animate-in fade-in slide-in-from-bottom-2">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+        <div className="bg-dark-card border border-dark-border rounded-lg p-4 sm:p-6 animate-in fade-in slide-in-from-bottom-2">
+          <h2 className="text-lg font-semibold text-dark-text-primary mb-4 flex items-center">
             <span className="mr-2" role="img" aria-label="Workout">💪</span>
             Workout
           </h2>
@@ -255,13 +255,13 @@ export const DailyLog = () => {
                 type="checkbox"
                 checked={formData.strength_workout}
                 onChange={(e) => setFormData(prev => ({ ...prev, strength_workout: e.target.checked }))}
-                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                className="w-5 h-5 text-accent-primary bg-dark-surface border-dark-border rounded focus:ring-accent-primary"
               />
-              <span className="text-gray-700">Strength workout completed</span>
+              <span className="text-dark-text-secondary">Strength workout completed</span>
             </label>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-dark-text-secondary mb-2">
                 Other workout type
               </label>
               <input
@@ -269,7 +269,7 @@ export const DailyLog = () => {
                 value={formData.other_workout_type}
                 onChange={(e) => setFormData(prev => ({ ...prev, other_workout_type: e.target.value }))}
                 placeholder="Running, padel, etc..."
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 bg-dark-surface border border-dark-border text-dark-text-primary rounded-lg focus:ring-2 focus:ring-accent-primary focus:border-accent-primary placeholder:text-dark-text-muted"
               />
             </div>
 
@@ -278,19 +278,19 @@ export const DailyLog = () => {
                 type="checkbox"
                 checked={formData.other_workout_completed}
                 onChange={(e) => setFormData(prev => ({ ...prev, other_workout_completed: e.target.checked }))}
-                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                className="w-5 h-5 text-accent-primary bg-dark-surface border-dark-border rounded focus:ring-accent-primary"
               />
-              <span className="text-gray-700">Other workout completed</span>
+              <span className="text-dark-text-secondary">Other workout completed</span>
             </label>
           </div>
         </div>
 
         {/* Reading Section */}
-        <div className="bg-white rounded-lg p-4 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">📚 Reading</h2>
+        <div className="bg-dark-card border border-dark-border rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-dark-text-primary mb-4">📚 Reading</h2>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-dark-text-secondary mb-2">
               Pages read today
             </label>
             <input
@@ -299,14 +299,14 @@ export const DailyLog = () => {
               onChange={(e) => setFormData(prev => ({ ...prev, pages_read: parseInt(e.target.value) || 0 }))}
               min="0"
               placeholder="10"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 bg-dark-surface border border-dark-border text-dark-text-primary rounded-lg focus:ring-2 focus:ring-accent-primary focus:border-accent-primary placeholder:text-dark-text-muted"
             />
           </div>
         </div>
 
         {/* Supplements Section */}
-        <div className="bg-white rounded-lg p-4 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">💊 Supplements</h2>
+        <div className="bg-dark-card border border-dark-border rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-dark-text-primary mb-4">💊 Supplements</h2>
           
           <div className="space-y-3">
             <label className="flex items-center space-x-3">
@@ -314,9 +314,9 @@ export const DailyLog = () => {
                 type="checkbox"
                 checked={formData.supplements_morning}
                 onChange={(e) => setFormData(prev => ({ ...prev, supplements_morning: e.target.checked }))}
-                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                className="w-5 h-5 text-accent-primary bg-dark-surface border-dark-border rounded focus:ring-accent-primary"
               />
-              <span className="text-gray-700">Morning supplements taken</span>
+              <span className="text-dark-text-secondary">Morning supplements taken</span>
             </label>
 
             <label className="flex items-center space-x-3">
@@ -324,20 +324,20 @@ export const DailyLog = () => {
                 type="checkbox"
                 checked={formData.supplements_night}
                 onChange={(e) => setFormData(prev => ({ ...prev, supplements_night: e.target.checked }))}
-                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
+                className="w-5 h-5 text-accent-primary bg-dark-surface border-dark-border rounded focus:ring-accent-primary"
               />
-              <span className="text-gray-700">Night supplements taken</span>
+              <span className="text-dark-text-secondary">Night supplements taken</span>
             </label>
           </div>
         </div>
 
         {/* Body Metrics Section */}
-        <div className="bg-white rounded-lg p-4 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">⚖️ Body Metrics</h2>
+        <div className="bg-dark-card border border-dark-border rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-dark-text-primary mb-4">⚖️ Body Metrics</h2>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-dark-text-secondary mb-2">
                 Weight (lbs)
               </label>
               <input
@@ -346,12 +346,12 @@ export const DailyLog = () => {
                 value={formData.weight}
                 onChange={(e) => setFormData(prev => ({ ...prev, weight: e.target.value }))}
                 placeholder="155.0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 bg-dark-surface border border-dark-border text-dark-text-primary rounded-lg focus:ring-2 focus:ring-accent-primary focus:border-accent-primary placeholder:text-dark-text-muted"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-dark-text-secondary mb-2">
                 Body Fat %
               </label>
               <input
@@ -360,19 +360,19 @@ export const DailyLog = () => {
                 value={formData.body_fat_percentage}
                 onChange={(e) => setFormData(prev => ({ ...prev, body_fat_percentage: e.target.value }))}
                 placeholder="15.0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 bg-dark-surface border border-dark-border text-dark-text-primary rounded-lg focus:ring-2 focus:ring-accent-primary focus:border-accent-primary placeholder:text-dark-text-muted"
               />
             </div>
           </div>
         </div>
 
         {/* Sleep & Nutrition Section */}
-        <div className="bg-white rounded-lg p-4 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">😴 Sleep & Nutrition</h2>
+        <div className="bg-dark-card border border-dark-border rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-dark-text-primary mb-4">😴 Sleep & Nutrition</h2>
           
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-dark-text-secondary mb-2">
                 Sleep hours
               </label>
               <input
@@ -381,12 +381,12 @@ export const DailyLog = () => {
                 value={formData.sleep_hours}
                 onChange={(e) => setFormData(prev => ({ ...prev, sleep_hours: e.target.value }))}
                 placeholder="8.0"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 bg-dark-surface border border-dark-border text-dark-text-primary rounded-lg focus:ring-2 focus:ring-accent-primary focus:border-accent-primary placeholder:text-dark-text-muted"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-dark-text-secondary mb-2">
                 Calories consumed
               </label>
               <input
@@ -394,18 +394,18 @@ export const DailyLog = () => {
                 value={formData.calories_consumed}
                 onChange={(e) => setFormData(prev => ({ ...prev, calories_consumed: e.target.value }))}
                 placeholder="2000"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-3 py-2 bg-dark-surface border border-dark-border text-dark-text-primary rounded-lg focus:ring-2 focus:ring-accent-primary focus:border-accent-primary placeholder:text-dark-text-muted"
               />
             </div>
           </div>
         </div>
 
         {/* Dog Training Section */}
-        <div className="bg-white rounded-lg p-4 shadow-sm">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">🐕 Dog Training</h2>
+        <div className="bg-dark-card border border-dark-border rounded-lg p-4">
+          <h2 className="text-lg font-semibold text-dark-text-primary mb-4">🐕 Dog Training</h2>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-dark-text-secondary mb-2">
               Training minutes
             </label>
             <input
@@ -414,7 +414,7 @@ export const DailyLog = () => {
               onChange={(e) => setFormData(prev => ({ ...prev, dog_training_minutes: parseInt(e.target.value) || 0 }))}
               min="0"
               placeholder="30"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-3 py-2 bg-dark-surface border border-dark-border text-dark-text-primary rounded-lg focus:ring-2 focus:ring-accent-primary focus:border-accent-primary placeholder:text-dark-text-muted"
             />
           </div>
         </div>
@@ -423,10 +423,10 @@ export const DailyLog = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+          className="w-full bg-accent-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
         >
           {isSubmitting && (
-            <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+            <div className="spinner w-4 h-4" />
           )}
           <span>{isSubmitting ? 'Saving...' : (todayEntry ? 'Update Entry' : 'Save Entry')}</span>
         </button>

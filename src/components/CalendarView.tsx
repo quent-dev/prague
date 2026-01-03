@@ -39,13 +39,13 @@ export const CalendarView = ({ onDateSelect, selectedDate }: CalendarViewProps) 
   }
 
   const getCompletionColor = (score: number, hasData: boolean) => {
-    if (!hasData) return 'bg-gray-100 text-gray-400'
+    if (!hasData) return 'bg-dark-surface border border-dark-border text-dark-text-muted'
     
-    if (score >= 7) return 'bg-green-500 text-white'
-    if (score >= 5) return 'bg-yellow-500 text-white'
+    if (score >= 7) return 'bg-accent-success text-white'
+    if (score >= 5) return 'bg-accent-warning text-white'
     if (score >= 3) return 'bg-orange-500 text-white'
-    if (score >= 1) return 'bg-red-500 text-white'
-    return 'bg-gray-300 text-gray-600'
+    if (score >= 1) return 'bg-accent-error text-white'
+    return 'bg-dark-border text-dark-text-muted'
   }
 
   const getCompletionEmoji = (score: number, hasData: boolean) => {
@@ -72,12 +72,12 @@ export const CalendarView = ({ onDateSelect, selectedDate }: CalendarViewProps) 
   }
 
   return (
-    <div className="bg-white rounded-lg p-4 shadow-sm">
+    <div className="bg-dark-card border border-dark-border rounded-lg p-4">
       {/* Calendar Header */}
       <div className="flex items-center justify-between mb-4">
         <button
           onClick={handlePrevMonth}
-          className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors tap-target focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-2 rounded-lg bg-dark-surface border border-dark-border hover:bg-dark-border text-dark-text-primary transition-colors tap-target focus:outline-none focus:ring-2 focus:ring-accent-primary"
           aria-label={`Previous month, ${format(subMonths(viewDate, 1), 'MMMM yyyy')}`}
         >
           <span className="sr-only">Previous month</span>
@@ -86,13 +86,13 @@ export const CalendarView = ({ onDateSelect, selectedDate }: CalendarViewProps) 
           </svg>
         </button>
         
-        <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
+        <h2 className="text-lg sm:text-xl font-semibold text-dark-text-primary">
           {format(viewDate, 'MMMM yyyy')}
         </h2>
         
         <button
           onClick={handleNextMonth}
-          className="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors tap-target focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-2 rounded-lg bg-dark-surface border border-dark-border hover:bg-dark-border text-dark-text-primary transition-colors tap-target focus:outline-none focus:ring-2 focus:ring-accent-primary"
           aria-label={`Next month, ${format(addMonths(viewDate, 1), 'MMMM yyyy')}`}
         >
           <span className="sr-only">Next month</span>
@@ -115,7 +115,7 @@ export const CalendarView = ({ onDateSelect, selectedDate }: CalendarViewProps) 
         ].map((day, index) => (
           <div 
             key={index} 
-            className="text-center text-xs font-medium text-gray-500 p-2"
+            className="text-center text-xs font-medium text-dark-text-muted p-2"
             aria-label={day.full}
           >
             {day.short}
@@ -143,13 +143,13 @@ export const CalendarView = ({ onDateSelect, selectedDate }: CalendarViewProps) 
               onClick={() => handleDateClick(date)}
               className={`
                 h-10 sm:h-12 w-full rounded-lg text-sm font-medium transition-all duration-200 relative tap-target
-                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1
+                focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-offset-1
                 ${isSelected 
-                  ? 'ring-2 ring-blue-500 ring-offset-2' 
+                  ? 'ring-2 ring-accent-primary ring-offset-2' 
                   : 'hover:scale-105 hover:shadow-md'
                 }
                 ${getCompletionColor(completion.score, completion.hasData)}
-                ${isTodayDate && !isSelected ? 'ring-1 ring-blue-300' : ''}
+                ${isTodayDate && !isSelected ? 'ring-1 ring-accent-primary/50' : ''}
               `}
               title={completion.hasData 
                 ? `${format(date, 'MMM d')}: ${completion.score}/9 goals completed`
@@ -171,7 +171,7 @@ export const CalendarView = ({ onDateSelect, selectedDate }: CalendarViewProps) 
               
               {/* Today indicator */}
               {isTodayDate && (
-                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-blue-600 rounded-full" />
+                <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-accent-primary rounded-full" />
               )}
             </button>
           )
@@ -179,15 +179,15 @@ export const CalendarView = ({ onDateSelect, selectedDate }: CalendarViewProps) 
       </div>
 
       {/* Legend */}
-      <div className="mt-4 pt-4 border-t border-gray-200">
-        <div className="text-xs text-gray-600 mb-2">Completion Legend:</div>
-        <div className="flex flex-wrap gap-2 text-xs">
+      <div className="mt-4 pt-4 border-t border-dark-border">
+        <div className="text-xs text-dark-text-secondary mb-2">Completion Legend:</div>
+        <div className="flex flex-wrap gap-2 text-xs text-dark-text-muted">
           <div className="flex items-center space-x-1">
-            <div className="w-3 h-3 bg-green-500 rounded"></div>
+            <div className="w-3 h-3 bg-accent-success rounded"></div>
             <span>7+ goals</span>
           </div>
           <div className="flex items-center space-x-1">
-            <div className="w-3 h-3 bg-yellow-500 rounded"></div>
+            <div className="w-3 h-3 bg-accent-warning rounded"></div>
             <span>5-6 goals</span>
           </div>
           <div className="flex items-center space-x-1">
@@ -195,15 +195,15 @@ export const CalendarView = ({ onDateSelect, selectedDate }: CalendarViewProps) 
             <span>3-4 goals</span>
           </div>
           <div className="flex items-center space-x-1">
-            <div className="w-3 h-3 bg-red-500 rounded"></div>
+            <div className="w-3 h-3 bg-accent-error rounded"></div>
             <span>1-2 goals</span>
           </div>
           <div className="flex items-center space-x-1">
-            <div className="w-3 h-3 bg-gray-300 rounded"></div>
+            <div className="w-3 h-3 bg-dark-border rounded"></div>
             <span>No goals</span>
           </div>
           <div className="flex items-center space-x-1">
-            <div className="w-3 h-3 bg-gray-100 border border-gray-300 rounded"></div>
+            <div className="w-3 h-3 bg-dark-surface border border-dark-border rounded"></div>
             <span>No data</span>
           </div>
         </div>

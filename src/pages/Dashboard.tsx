@@ -60,126 +60,126 @@ export const Dashboard = () => {
 
   return (
     <div className="p-4 pb-20">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Progress Dashboard</h1>
+      <h1 className="text-2xl font-bold text-dark-text-primary mb-6">Progress Dashboard</h1>
       
       {/* Overall Stats */}
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="bg-white rounded-lg p-4 shadow-sm">
+        <div className="bg-dark-card border border-dark-border rounded-lg p-4">
           <div className="text-center">
-            <div className="text-2xl font-bold text-blue-600">{overallProgress.completedDays}</div>
-            <div className="text-sm text-gray-600">Days Logged</div>
-            <div className="text-xs text-gray-500">out of {overallProgress.totalDays}</div>
+            <div className="text-2xl font-bold text-accent-primary">{overallProgress.completedDays}</div>
+            <div className="text-sm text-dark-text-secondary">Days Logged</div>
+            <div className="text-xs text-dark-text-muted">out of {overallProgress.totalDays}</div>
           </div>
         </div>
         
-        <div className="bg-white rounded-lg p-4 shadow-sm">
+        <div className="bg-dark-card border border-dark-border rounded-lg p-4">
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">{overallProgress.streak}</div>
-            <div className="text-sm text-gray-600">Current Streak</div>
-            <div className="text-xs text-gray-500">consecutive days</div>
+            <div className="text-2xl font-bold text-accent-success">{overallProgress.streak}</div>
+            <div className="text-sm text-dark-text-secondary">Current Streak</div>
+            <div className="text-xs text-dark-text-muted">consecutive days</div>
           </div>
         </div>
       </div>
       
       {/* Weekly Goals Progress */}
-      <div className="bg-white rounded-lg p-4 shadow-sm mb-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">📅 This Week's Goals</h2>
+      <div className="bg-dark-card border border-dark-border rounded-lg p-4 mb-6">
+        <h2 className="text-lg font-semibold text-dark-text-primary mb-4">📅 This Week's Goals</h2>
         
         <div className="space-y-4">
           {/* Work Blockers */}
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-700">Work Blockers</span>
+            <span className="text-sm font-medium text-dark-text-secondary">Work Blockers</span>
             <div className="flex items-center space-x-2">
-              <div className="flex-1 bg-gray-200 rounded-full h-2 w-20">
+              <div className="flex-1 bg-dark-surface rounded-full h-2 w-20">
                 <div 
-                  className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                  className="bg-accent-primary h-2 rounded-full transition-all duration-300"
                   style={{ width: `${Math.min(100, (weeklyProgress.workBlockers.current / weeklyProgress.workBlockers.goal) * 100)}%` }}
                 />
               </div>
-              <span className={`text-sm font-medium ${weeklyProgress.workBlockers.completed ? 'text-green-600' : 'text-gray-600'}`}>
+              <span className={`text-sm font-medium ${weeklyProgress.workBlockers.completed ? 'text-accent-success' : 'text-dark-text-muted'}`}>
                 {weeklyProgress.workBlockers.current}/{weeklyProgress.workBlockers.goal}
               </span>
-              {weeklyProgress.workBlockers.completed && <span className="text-green-600">✅</span>}
+              {weeklyProgress.workBlockers.completed && <span className="text-accent-success">✅</span>}
             </div>
           </div>
           
           {/* Family Hours */}
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-gray-700">Family Hours</span>
+            <span className="text-sm font-medium text-dark-text-secondary">Family Hours</span>
             <div className="flex items-center space-x-2">
-              <div className="flex-1 bg-gray-200 rounded-full h-2 w-20">
+              <div className="flex-1 bg-dark-surface rounded-full h-2 w-20">
                 <div 
-                  className="bg-green-600 h-2 rounded-full transition-all duration-300"
+                  className="bg-accent-success h-2 rounded-full transition-all duration-300"
                   style={{ width: `${Math.min(100, (weeklyProgress.familyHours.current / weeklyProgress.familyHours.goal) * 100)}%` }}
                 />
               </div>
-              <span className={`text-sm font-medium ${weeklyProgress.familyHours.completed ? 'text-green-600' : 'text-gray-600'}`}>
+              <span className={`text-sm font-medium ${weeklyProgress.familyHours.completed ? 'text-accent-success' : 'text-dark-text-muted'}`}>
                 {weeklyProgress.familyHours.current.toFixed(1)}/{weeklyProgress.familyHours.goal}h
               </span>
-              {weeklyProgress.familyHours.completed && <span className="text-green-600">✅</span>}
+              {weeklyProgress.familyHours.completed && <span className="text-accent-success">✅</span>}
             </div>
           </div>
         </div>
       </div>
 
       {/* Habit Streaks */}
-      <div className="bg-white rounded-lg p-4 shadow-sm mb-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">🔥 Habit Streaks</h2>
+      <div className="bg-dark-card border border-dark-border rounded-lg p-4 mb-6">
+        <h2 className="text-lg font-semibold text-dark-text-primary mb-4">🔥 Habit Streaks</h2>
         
         <div className="grid grid-cols-2 gap-4">
           {/* Workout Streak */}
-          <div className="text-center p-3 bg-blue-50 rounded-lg">
-            <div className="text-xl font-bold text-blue-600">💪 {workoutStreak.current}</div>
-            <div className="text-xs text-gray-600">Workout Days</div>
-            <div className="text-xs text-blue-600">{workoutStreak.completionRate.toFixed(0)}% rate</div>
+          <div className="text-center p-3 bg-dark-surface border border-dark-border rounded-lg">
+            <div className="text-xl font-bold text-accent-primary">💪 {workoutStreak.current}</div>
+            <div className="text-xs text-dark-text-muted">Workout Days</div>
+            <div className="text-xs text-accent-primary">{workoutStreak.completionRate.toFixed(0)}% rate</div>
           </div>
           
           {/* Reading Streak */}
-          <div className="text-center p-3 bg-green-50 rounded-lg">
-            <div className="text-xl font-bold text-green-600">📚 {readingStreak.current}</div>
-            <div className="text-xs text-gray-600">Reading Days</div>
-            <div className="text-xs text-green-600">{readingStreak.completionRate.toFixed(0)}% rate</div>
+          <div className="text-center p-3 bg-dark-surface border border-dark-border rounded-lg">
+            <div className="text-xl font-bold text-accent-success">📚 {readingStreak.current}</div>
+            <div className="text-xs text-dark-text-muted">Reading Days</div>
+            <div className="text-xs text-accent-success">{readingStreak.completionRate.toFixed(0)}% rate</div>
           </div>
           
           {/* Supplements Streak */}
-          <div className="text-center p-3 bg-purple-50 rounded-lg">
-            <div className="text-xl font-bold text-purple-600">💊 {supplementsStreak.current}</div>
-            <div className="text-xs text-gray-600">Supplement Days</div>
-            <div className="text-xs text-purple-600">{supplementsStreak.completionRate.toFixed(0)}% rate</div>
+          <div className="text-center p-3 bg-dark-surface border border-dark-border rounded-lg">
+            <div className="text-xl font-bold text-purple-400">💊 {supplementsStreak.current}</div>
+            <div className="text-xs text-dark-text-muted">Supplement Days</div>
+            <div className="text-xs text-purple-400">{supplementsStreak.completionRate.toFixed(0)}% rate</div>
           </div>
           
           {/* Dog Training Streak */}
-          <div className="text-center p-3 bg-orange-50 rounded-lg">
-            <div className="text-xl font-bold text-orange-600">🐕 {dogTrainingStreak.current}</div>
-            <div className="text-xs text-gray-600">Training Days</div>
-            <div className="text-xs text-orange-600">{dogTrainingStreak.completionRate.toFixed(0)}% rate</div>
+          <div className="text-center p-3 bg-dark-surface border border-dark-border rounded-lg">
+            <div className="text-xl font-bold text-accent-warning">🐕 {dogTrainingStreak.current}</div>
+            <div className="text-xs text-dark-text-muted">Training Days</div>
+            <div className="text-xs text-accent-warning">{dogTrainingStreak.completionRate.toFixed(0)}% rate</div>
           </div>
         </div>
       </div>
 
       {/* Recent Performance */}
-      <div className="bg-white rounded-lg p-4 shadow-sm mb-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">📈 Recent Performance</h2>
+      <div className="bg-dark-card border border-dark-border rounded-lg p-4 mb-6">
+        <h2 className="text-lg font-semibold text-dark-text-primary mb-4">📈 Recent Performance</h2>
         
         <div className="text-center mb-4">
-          <div className="text-3xl font-bold text-indigo-600">{averageCompletionScore}</div>
-          <div className="text-sm text-gray-600">Average Daily Score</div>
-          <div className="text-xs text-gray-500">out of 9 goals (last 7 days)</div>
+          <div className="text-3xl font-bold text-indigo-400">{averageCompletionScore}</div>
+          <div className="text-sm text-dark-text-secondary">Average Daily Score</div>
+          <div className="text-xs text-dark-text-muted">out of 9 goals (last 7 days)</div>
         </div>
         
         {/* Recent days grid */}
         <div className="space-y-2">
-          <div className="text-xs text-gray-500 text-center mb-2">Last 7 Days</div>
+          <div className="text-xs text-dark-text-muted text-center mb-2">Last 7 Days</div>
           <div className="flex justify-center space-x-1">
             {recentEntries.slice(-7).map((day) => (
               <div 
                 key={day.date}
-                className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-medium ${
+                className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-medium border ${
                   day.completionScore >= 7 
-                    ? 'bg-green-100 text-green-800' 
+                    ? 'bg-green-900/20 text-accent-success border-accent-success/30' 
                     : day.completionScore >= 5 
-                    ? 'bg-yellow-100 text-yellow-800'
-                    : 'bg-red-100 text-red-800'
+                    ? 'bg-yellow-900/20 text-accent-warning border-accent-warning/30'
+                    : 'bg-red-900/20 text-accent-error border-accent-error/30'
                 }`}
                 title={`${day.date}: ${day.completionScore}/9 goals`}
               >
@@ -232,28 +232,28 @@ export const Dashboard = () => {
       </div>
 
       {/* Longest Streaks */}
-      <div className="bg-white rounded-lg p-4 shadow-sm">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">🏆 Personal Bests</h2>
+      <div className="bg-dark-card border border-dark-border rounded-lg p-4">
+        <h2 className="text-lg font-semibold text-dark-text-primary mb-4">🏆 Personal Bests</h2>
         
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-600">💪 Longest Workout Streak:</span>
-            <span className="font-medium">{workoutStreak.longest} days</span>
+            <span className="text-dark-text-secondary">💪 Longest Workout Streak:</span>
+            <span className="font-medium text-dark-text-primary">{workoutStreak.longest} days</span>
           </div>
           
           <div className="flex justify-between">
-            <span className="text-gray-600">📚 Longest Reading Streak:</span>
-            <span className="font-medium">{readingStreak.longest} days</span>
+            <span className="text-dark-text-secondary">📚 Longest Reading Streak:</span>
+            <span className="font-medium text-dark-text-primary">{readingStreak.longest} days</span>
           </div>
           
           <div className="flex justify-between">
-            <span className="text-gray-600">💊 Longest Supplement Streak:</span>
-            <span className="font-medium">{supplementsStreak.longest} days</span>
+            <span className="text-dark-text-secondary">💊 Longest Supplement Streak:</span>
+            <span className="font-medium text-dark-text-primary">{supplementsStreak.longest} days</span>
           </div>
           
           <div className="flex justify-between">
-            <span className="text-gray-600">🐕 Longest Training Streak:</span>
-            <span className="font-medium">{dogTrainingStreak.longest} days</span>
+            <span className="text-dark-text-secondary">🐕 Longest Training Streak:</span>
+            <span className="font-medium text-dark-text-primary">{dogTrainingStreak.longest} days</span>
           </div>
         </div>
       </div>

@@ -18,10 +18,10 @@ function App() {
   // Show loading while initializing
   if (!isInitialized) {
     return (
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <div className="animate-spin w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full mx-auto mb-4" />
-          <p className="text-gray-600">Loading Prague Tracker...</p>
+      <div className="min-h-screen bg-dark-bg flex items-center justify-center">
+        <div className="bg-dark-card p-8 rounded-lg border border-dark-border">
+          <div className="spinner w-8 h-8 mx-auto mb-4" />
+          <p className="text-dark-text-secondary">Loading Prague Tracker...</p>
         </div>
       </div>
     )
@@ -35,7 +35,7 @@ function App() {
   // Main app with navigation
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-dark-bg text-dark-text-primary flex flex-col">
         {/* Session status bar */}
         <SessionStatus />
         

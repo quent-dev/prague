@@ -6,9 +6,9 @@ interface FormFeedbackProps {
 
 export const FormFeedback = ({ type, message, onClose }: FormFeedbackProps) => {
   const bgColor = {
-    success: 'bg-green-50 border-green-200 text-green-800',
-    error: 'bg-red-50 border-red-200 text-red-800',
-    info: 'bg-blue-50 border-blue-200 text-blue-800',
+    success: 'bg-green-900/20 border-accent-success/30 text-accent-success',
+    error: 'bg-red-900/20 border-accent-error/30 text-accent-error',
+    info: 'bg-blue-900/20 border-accent-primary/30 text-accent-primary',
   }[type]
 
   const icon = {
@@ -31,7 +31,7 @@ export const FormFeedback = ({ type, message, onClose }: FormFeedbackProps) => {
       {onClose && (
         <button
           onClick={onClose}
-          className="text-gray-400 hover:text-gray-600 ml-3 flex-shrink-0 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1 rounded p-1"
+          className="text-dark-text-muted hover:text-dark-text-secondary ml-3 flex-shrink-0 transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-dark-border focus:ring-offset-1 rounded p-1"
           aria-label="Close notification"
           type="button"
         >

@@ -57,60 +57,60 @@ export const WeeklyGoals = ({ currentDate }: WeeklyGoalsProps) => {
   const weekRange = `${weekStart} - ${weekEnd}`
 
   return (
-    <div className="bg-white rounded-lg p-4 shadow-sm">
+    <div className="bg-dark-card border border-dark-border rounded-lg p-4">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">📅 Weekly Goals</h2>
-        <span className="text-sm text-gray-500">{weekRange}</span>
+        <h2 className="text-lg font-semibold text-dark-text-primary">📅 Weekly Goals</h2>
+        <span className="text-sm text-dark-text-muted">{weekRange}</span>
       </div>
 
       <div className="space-y-4">
         {/* Work Blockers */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-dark-text-secondary mb-2">
             Work blocking points unlocked this week
           </label>
           <div className="flex items-center space-x-2">
             <button
               type="button"
               onClick={() => setWorkBlockers(Math.max(0, workBlockers - 1))}
-              className="w-8 h-8 rounded-lg bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
+              className="w-8 h-8 rounded-lg bg-dark-surface border border-dark-border hover:bg-dark-border text-dark-text-primary flex items-center justify-center"
             >
               −
             </button>
-            <span className="text-lg font-medium min-w-[2rem] text-center">{workBlockers}</span>
+            <span className="text-lg font-medium min-w-[2rem] text-center text-dark-text-primary">{workBlockers}</span>
             <button
               type="button"
               onClick={() => setWorkBlockers(workBlockers + 1)}
-              className="w-8 h-8 rounded-lg bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
+              className="w-8 h-8 rounded-lg bg-dark-surface border border-dark-border hover:bg-dark-border text-dark-text-primary flex items-center justify-center"
             >
               +
             </button>
-            <span className="text-sm text-gray-500 ml-2">/ 1 goal</span>
+            <span className="text-sm text-dark-text-muted ml-2">/ 1 goal</span>
           </div>
         </div>
 
         {/* Family/House Hours */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-dark-text-secondary mb-2">
             Family/house project hours this week
           </label>
           <div className="flex items-center space-x-2">
             <button
               type="button"
               onClick={() => setFamilyHours(Math.max(0, familyHours - 0.5))}
-              className="w-8 h-8 rounded-lg bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
+              className="w-8 h-8 rounded-lg bg-dark-surface border border-dark-border hover:bg-dark-border text-dark-text-primary flex items-center justify-center"
             >
               −
             </button>
-            <span className="text-lg font-medium min-w-[3rem] text-center">{familyHours.toFixed(1)}</span>
+            <span className="text-lg font-medium min-w-[3rem] text-center text-dark-text-primary">{familyHours.toFixed(1)}</span>
             <button
               type="button"
               onClick={() => setFamilyHours(familyHours + 0.5)}
-              className="w-8 h-8 rounded-lg bg-gray-200 hover:bg-gray-300 flex items-center justify-center"
+              className="w-8 h-8 rounded-lg bg-dark-surface border border-dark-border hover:bg-dark-border text-dark-text-primary flex items-center justify-center"
             >
               +
             </button>
-            <span className="text-sm text-gray-500 ml-2">hours / 2.0 goal</span>
+            <span className="text-sm text-dark-text-muted ml-2">hours / 2.0 goal</span>
           </div>
         </div>
 
@@ -119,29 +119,29 @@ export const WeeklyGoals = ({ currentDate }: WeeklyGoalsProps) => {
           type="button"
           onClick={handleSaveWeekly}
           disabled={isUpdating}
-          className="w-full bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50 flex items-center justify-center space-x-2"
+          className="w-full bg-accent-success text-white py-2 px-4 rounded-lg hover:bg-green-700 transition-colors font-medium disabled:opacity-50 flex items-center justify-center space-x-2"
         >
           {isUpdating && (
-            <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+            <div className="spinner w-4 h-4" />
           )}
           <span>{isUpdating ? 'Saving...' : 'Update Weekly Goals'}</span>
         </button>
 
         {/* Progress Indicators */}
-        <div className="pt-2 border-t border-gray-100">
+        <div className="pt-2 border-t border-dark-border">
           <div className="space-y-2">
             {/* Work Blockers Progress */}
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600">Work Blockers</span>
-              <span className={`font-medium ${workBlockers >= 1 ? 'text-green-600' : 'text-gray-400'}`}>
+              <span className="text-dark-text-secondary">Work Blockers</span>
+              <span className={`font-medium ${workBlockers >= 1 ? 'text-accent-success' : 'text-dark-text-muted'}`}>
                 {workBlockers >= 1 ? '✅ Complete' : `${workBlockers}/1`}
               </span>
             </div>
             
             {/* Family Hours Progress */}
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600">Family Hours</span>
-              <span className={`font-medium ${familyHours >= 2 ? 'text-green-600' : 'text-gray-400'}`}>
+              <span className="text-dark-text-secondary">Family Hours</span>
+              <span className={`font-medium ${familyHours >= 2 ? 'text-accent-success' : 'text-dark-text-muted'}`}>
                 {familyHours >= 2 ? '✅ Complete' : `${familyHours.toFixed(1)}/2.0h`}
               </span>
             </div>
