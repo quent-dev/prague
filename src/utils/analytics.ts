@@ -72,31 +72,47 @@ export const calculateHabitStreak = (
   let longestStreak = 0
   let tempStreak = 0
   let completedDays = 0
+  let currentStreakBroken = false
   
-  // Calculate current streak (from most recent day backwards)
-  const today = format(new Date(), 'yyyy-MM-dd')
-  let checkDate = today
+  // Calculate streaks (from most recent day backwards)
+  const today = new Date()
+  const todayString = format(today, 'yyyy-MM-dd')
   
   for (let i = 0; i < totalDays; i++) {
+    const checkDate = format(subDays(today, i), 'yyyy-MM-dd')
     const entry = sortedEntries.find(e => e.date === checkDate)
+    const habitMet = entry ? habitChecker(entry) : false
     
-    if (entry && habitChecker(entry)) {
-      if (i === 0 || currentStreak > 0) { // Only count if it's today or continuing a streak
+    if (habitMet) {
+      // Count for completion rate
+      completedDays++
+      
+      // Track temporary streak for longest calculation
+      tempStreak++
+      
+      // Track current streak (only count consecutive days from today)
+      if (!currentStreakBroken) {
         currentStreak++
       }
-      tempStreak++
-      completedDays++
     } else {
-      if (i === 0) currentStreak = 0 // Break current streak if today is not completed
-      if (tempStreak > longestStreak) longestStreak = tempStreak
+      // Habit not completed this day
+      // Break current streak counting (but keep the count we have so far)
+      currentStreakBroken = true
+      
+      // Check if we need to update longest streak
+      if (tempStreak > longestStreak) {
+        longestStreak = tempStreak
+      }
+      
+      // Reset temp streak for next potential streak
       tempStreak = 0
     }
-    
-    checkDate = format(subDays(new Date(checkDate), 1), 'yyyy-MM-dd')
   }
   
-  // Check if temp streak is the longest
-  if (tempStreak > longestStreak) longestStreak = tempStreak
+  // Check if the final temp streak is the longest
+  if (tempStreak > longestStreak) {
+    longestStreak = tempStreak
+  }
   
   const completionRate = (completedDays / totalDays) * 100
   
@@ -117,11 +133,13 @@ export const calculateProgressStats = (entries: DailyEntry[], totalDays = 30): P
   const today = format(new Date(), 'yyyy-MM-dd')
   let checkDate = today
   
+  // Count consecutive days with entries from today backwards
   for (let i = 0; i < totalDays; i++) {
     const hasEntry = entries.some(e => e.date === checkDate)
     if (hasEntry) {
       currentStreak++
     } else {
+      // Break on first missing day
       break
     }
     checkDate = format(subDays(new Date(checkDate), 1), 'yyyy-MM-dd')

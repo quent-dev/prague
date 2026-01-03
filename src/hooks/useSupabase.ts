@@ -5,7 +5,7 @@ import { useSyncStore } from '../stores/syncStore'
 import { Session, DailyEntry, WeeklyEntry, GoalsConfig } from '../lib/types'
 
 export const useSupabase = () => {
-  const { sessionKey, setLoading, setError } = useAppStore()
+  const { sessionKey, currentSession, setLoading, setError } = useAppStore()
   const { addPendingOperation, isOnline } = useSyncStore()
 
   // Session management
@@ -174,6 +174,10 @@ export const useSupabase = () => {
   }, [sessionKey, setLoading, setError])
 
   const createWeeklyEntry = useCallback(async (entry: Omit<WeeklyEntry, 'id' | 'created_at' | 'updated_at'>) => {
+    console.log('🗃️ createWeeklyEntry called with:', entry)
+    console.log('📋 Session key for RLS:', sessionKey)
+    console.log('🆔 Current session ID:', currentSession?.id)
+    
     setLoading(true)
     setError(null)
     
@@ -190,15 +194,20 @@ export const useSupabase = () => {
         return null
       }
 
+      console.log('🌐 Making Supabase insert call...')
       const { data, error } = await supabase
         .from('weekly_entries')
         .insert([entry])
         .select()
         .single()
 
+      console.log('📥 Supabase insert response:', { data, error })
+      
       if (error) throw error
+      console.log('✅ Weekly entry created successfully:', data)
       return data as WeeklyEntry
     } catch (error: any) {
+      console.error('❌ Error in createWeeklyEntry:', error)
       setError(error.message)
       throw error
     } finally {
@@ -208,7 +217,11 @@ export const useSupabase = () => {
 
   // Update weekly entry
   const updateWeeklyEntry = useCallback(async (id: string, updates: Partial<WeeklyEntry>) => {
-    if (!sessionKey) throw new Error('No session key')
+    console.log('🔄 updateWeeklyEntry called with:', { id, updates })
+    console.log('📋 Session key for RLS:', sessionKey)
+    console.log('🆔 Current session ID for filtering:', currentSession?.id)
+    
+    if (!currentSession?.id) throw new Error('No current session')
     
     setLoading(true)
     try {
@@ -225,26 +238,33 @@ export const useSupabase = () => {
         return null // Return null instead of throwing for offline operations
       }
 
+      const updateData = {
+        ...updates,
+        updated_at: new Date().toISOString()
+      }
+      console.log('🌐 Making Supabase update call with data:', updateData)
+      console.log('🎯 Filtering by id:', id, '(relying on RLS for session filtering)')
+      
       const { data, error } = await supabase
         .from('weekly_entries')
-        .update({
-          ...updates,
-          updated_at: new Date().toISOString()
-        })
+        .update(updateData)
         .eq('id', id)
-        .eq('session_id', sessionKey)
         .select()
         .single()
 
+      console.log('📥 Supabase update response:', { data, error })
+      
       if (error) throw error
+      console.log('✅ Weekly entry updated successfully:', data)
       return data as WeeklyEntry
     } catch (error: any) {
+      console.error('❌ Error in updateWeeklyEntry:', error)
       setError(error.message)
       throw error
     } finally {
       setLoading(false)
     }
-  }, [sessionKey, setLoading, setError, isOnline, addPendingOperation])
+  }, [currentSession?.id, sessionKey, setLoading, setError, isOnline, addPendingOperation])
 
   // Goals config
   const getGoalsConfig = useCallback(async (monthYear: string) => {

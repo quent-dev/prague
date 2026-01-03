@@ -118,6 +118,8 @@ export const useOptimistic = () => {
   const createWeeklyEntryOptimistic = useCallback(async (
     entry: Omit<WeeklyEntry, 'id' | 'created_at' | 'updated_at'>
   ) => {
+    console.log('🆕 createWeeklyEntryOptimistic called with:', entry)
+    
     const optimisticEntry: WeeklyEntry = {
       ...entry,
       id: `temp_weekly_${Date.now()}`,
@@ -125,16 +127,21 @@ export const useOptimistic = () => {
       updated_at: new Date().toISOString(),
     }
 
+    console.log('📝 Adding optimistic weekly entry to store:', optimisticEntry)
     addWeeklyEntry(optimisticEntry)
 
     try {
       if (isOnline) {
+        console.log('🌐 Online: calling createWeeklyEntryDB with:', entry)
         const serverEntry = await createWeeklyEntryDB(entry)
+        console.log('💾 Server response:', serverEntry)
         
         if (serverEntry) {
+          console.log('🔄 Updating store with server entry')
           updateWeeklyEntry(optimisticEntry.id, serverEntry)
         }
       } else {
+        console.log('📴 Offline: adding to pending operations')
         addPendingOperation({
           id: optimisticEntry.id,
           type: 'INSERT',
@@ -145,11 +152,13 @@ export const useOptimistic = () => {
         })
       }
     } catch (error: any) {
+      console.error('❌ Error in createWeeklyEntryOptimistic:', error)
       updateWeeklyEntry(optimisticEntry.id, {
         ...optimisticEntry,
         id: `failed_${optimisticEntry.id}`
       })
       setError(error.message)
+      throw error
     }
 
     return optimisticEntry
@@ -232,22 +241,28 @@ export const useOptimistic = () => {
     id: string, 
     updates: Partial<WeeklyEntry>
   ) => {
+    console.log('🔄 updateWeeklyEntryOptimistic called with:', { id, updates })
+    
     const optimisticUpdates = {
       ...updates,
       updated_at: new Date().toISOString()
     }
     
+    console.log('📝 Updating weekly entry in store with optimistic updates:', optimisticUpdates)
     updateWeeklyEntry(id, optimisticUpdates)
 
     try {
       if (isOnline) {
+        console.log('🌐 Online: calling updateWeeklyEntryDB with:', { id, updates })
         const serverEntry = await updateWeeklyEntryDB(id, updates)
+        console.log('💾 Server response:', serverEntry)
         
         if (serverEntry) {
-          // Update with server response to ensure consistency
+          console.log('🔄 Updating store with server entry')
           updateWeeklyEntry(id, serverEntry)
         }
       } else {
+        console.log('📴 Offline: adding to pending operations')
         addPendingOperation({
           id: `update_weekly_${id}_${Date.now()}`,
           type: 'UPDATE',
@@ -258,8 +273,10 @@ export const useOptimistic = () => {
         })
       }
     } catch (error: any) {
+      console.error('❌ Error in updateWeeklyEntryOptimistic:', error)
       // TODO: Implement rollback mechanism
       setError(error.message)
+      throw error
     }
   }, [updateWeeklyEntry, updateWeeklyEntryDB, isOnline, addPendingOperation, setError])
 

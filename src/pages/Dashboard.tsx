@@ -22,6 +22,7 @@ export const Dashboard = () => {
     (entry) => entry.strength_workout || entry.other_workout_completed
   )
   
+  
   const readingStreak = calculateHabitStreak(
     dailyEntries,
     (entry) => entry.pages_read >= 10

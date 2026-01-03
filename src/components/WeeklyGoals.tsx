@@ -41,7 +41,13 @@ export const WeeklyGoals = ({ currentDate }: WeeklyGoalsProps) => {
     }
 
     const timeoutId = setTimeout(async () => {
-      console.log('Auto-saving weekly goals:', { workBlockers, familyHours, weekEntry })
+      console.log('🔄 Auto-saving weekly goals:', { 
+        workBlockers, 
+        familyHours, 
+        weekEntry,
+        weekStartDate,
+        sessionId: currentSession.id 
+      })
       setIsUpdating(true)
       
       try {
@@ -52,18 +58,25 @@ export const WeeklyGoals = ({ currentDate }: WeeklyGoalsProps) => {
           family_house_hours: familyHours,
         }
 
+        console.log('📦 Entry data to save:', entryData)
+
+        let result
         if (weekEntry) {
-          console.log('Updating existing weekly entry:', weekEntry.id)
-          await updateWeeklyEntryOptimistic(weekEntry.id, entryData)
+          console.log('📝 Updating existing weekly entry:', weekEntry.id)
+          result = await updateWeeklyEntryOptimistic(weekEntry.id, entryData)
         } else {
-          console.log('Creating new weekly entry')
-          await createWeeklyEntryOptimistic(entryData)
+          console.log('➕ Creating new weekly entry')
+          result = await createWeeklyEntryOptimistic(entryData)
         }
-        console.log('Weekly goals auto-save completed')
+        console.log('✅ Weekly goals auto-save completed, result:', result)
       } catch (error) {
-        console.error('Failed to auto-save weekly goals:', error)
-      } finally {
+        console.error('❌ Failed to auto-save weekly goals:', error)
+        // Show error to user
         setIsUpdating(false)
+        setTimeout(() => setIsUpdating(true), 100) // Brief flash to show error state
+        setTimeout(() => setIsUpdating(false), 1000)
+      } finally {
+        setTimeout(() => setIsUpdating(false), 500) // Small delay to show success
       }
     }, 1500) // Increased debounce to 1.5 seconds
 

@@ -13,9 +13,9 @@ export const CalorieChart = ({ data, title, className = "" }: CalorieChartProps)
 
   if (filteredData.length === 0) {
     return (
-      <div className={`bg-white rounded-lg p-4 shadow-sm ${className}`}>
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">{title}</h3>
-        <div className="text-center py-8 text-gray-500">
+      <div className={`bg-dark-card border border-dark-border rounded-lg p-4 ${className}`}>
+        <h3 className="text-lg font-semibold text-dark-text-primary mb-4">{title}</h3>
+        <div className="text-center py-8 text-dark-text-muted">
           <div className="text-4xl mb-2">🍽️</div>
           <p>No calorie data available yet</p>
           <p className="text-sm">Start logging your daily calories to see patterns!</p>
@@ -27,8 +27,8 @@ export const CalorieChart = ({ data, title, className = "" }: CalorieChartProps)
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white p-3 border border-gray-200 rounded-lg shadow-lg">
-          <p className="font-medium text-gray-900">{label}</p>
+        <div className="bg-dark-surface border border-dark-border rounded-lg shadow-lg p-3">
+          <p className="font-medium text-dark-text-primary">{label}</p>
           <p style={{ color: payload[0].color }} className="text-sm">
             Calories: {payload[0].value?.toLocaleString()}
           </p>
@@ -49,21 +49,21 @@ export const CalorieChart = ({ data, title, className = "" }: CalorieChartProps)
   const consistentIntake = calorieVariance <= 800 // Less than 800 calorie daily variation
 
   return (
-    <div className={`bg-white rounded-lg p-4 shadow-sm ${className}`}>
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">{title}</h3>
+    <div className={`bg-dark-card border border-dark-border rounded-lg p-4 ${className}`}>
+      <h3 className="text-lg font-semibold text-dark-text-primary mb-4">{title}</h3>
       
       <div className="h-64">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={filteredData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#404040" />
             <XAxis 
               dataKey="displayDate" 
-              stroke="#6b7280"
+              stroke="#a3a3a3"
               fontSize={12}
               tick={{ fontSize: 11 }}
             />
             <YAxis 
-              stroke="#6b7280"
+              stroke="#a3a3a3"
               fontSize={12}
               tick={{ fontSize: 11 }}
               domain={['dataMin - 100', 'dataMax + 100']}
@@ -84,7 +84,7 @@ export const CalorieChart = ({ data, title, className = "" }: CalorieChartProps)
       {/* Calorie Insights */}
       <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
         <div className="text-center">
-          <div className="text-xs text-gray-500 mb-1">Daily Average</div>
+          <div className="text-xs text-dark-text-muted mb-1">Daily Average</div>
           <div className="flex items-center justify-center space-x-2">
             <span className={`font-medium ${healthyRange ? 'text-green-600' : 'text-amber-600'}`}>
               {averageCalories.toFixed(0)}
@@ -93,11 +93,11 @@ export const CalorieChart = ({ data, title, className = "" }: CalorieChartProps)
               {healthyRange ? '✅' : averageCalories < 1500 ? '⚠️' : '🔥'}
             </span>
           </div>
-          <div className="text-xs text-gray-400 mt-1">calories</div>
+          <div className="text-xs text-dark-text-muted mt-1">calories</div>
         </div>
         
         <div className="text-center">
-          <div className="text-xs text-gray-500 mb-1">Consistency</div>
+          <div className="text-xs text-dark-text-muted mb-1">Consistency</div>
           <div className="flex items-center justify-center space-x-2">
             <span className={`font-medium ${consistentIntake ? 'text-green-600' : 'text-orange-600'}`}>
               ±{(calorieVariance / 2).toFixed(0)}
@@ -106,7 +106,7 @@ export const CalorieChart = ({ data, title, className = "" }: CalorieChartProps)
               {consistentIntake ? '🎯' : '📊'}
             </span>
           </div>
-          <div className="text-xs text-gray-400 mt-1">variance</div>
+          <div className="text-xs text-dark-text-muted mt-1">variance</div>
         </div>
       </div>
     </div>
