@@ -11,7 +11,7 @@ export const Navigation = () => {
 
   return (
     <nav 
-      className="bg-dark-card border-t border-dark-border px-2 sm:px-4 py-2 safe-area-bottom"
+      className="fixed bottom-0 left-0 right-0 z-50 bg-dark-card border-t border-dark-border px-2 sm:px-4 py-2 safe-area-bottom backdrop-blur-sm"
       role="navigation"
       aria-label="Main navigation"
     >

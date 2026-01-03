@@ -39,8 +39,8 @@ function App() {
         {/* Session status bar */}
         <SessionStatus />
         
-        {/* Main content */}
-        <main className="flex-1 overflow-y-auto">
+        {/* Main content with bottom padding for fixed navigation */}
+        <main className="flex-1 overflow-y-auto pb-20">
           <ErrorBoundary>
             <Routes>
               <Route path="/" element={<DailyLog />} />
@@ -53,7 +53,7 @@ function App() {
           </ErrorBoundary>
         </main>
         
-        {/* Bottom navigation */}
+        {/* Fixed bottom navigation */}
         <Navigation />
       </div>
     </ErrorBoundary>

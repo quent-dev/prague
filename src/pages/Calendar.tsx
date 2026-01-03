@@ -24,7 +24,7 @@ export const Calendar = () => {
   const selectedGoalStatus = selectedEntry ? calculateDailyGoalStatus(selectedEntry) : null
 
   return (
-    <div className="p-4 pb-20">
+    <div className="p-4">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-dark-text-primary">Calendar View</h1>
         <button
@@ -46,7 +46,7 @@ export const Calendar = () => {
       {/* Selected Date Summary */}
       <div className="bg-dark-card border border-dark-border rounded-lg p-4">
         <h3 className="text-lg font-semibold text-dark-text-primary mb-4">
-          {format(new Date(selectedDate), 'EEEE, MMMM d, yyyy')}
+          {format(new Date(`${selectedDate}T00:00:00`), 'EEEE, MMMM d, yyyy')}
         </h3>
 
         {selectedGoalStatus ? (

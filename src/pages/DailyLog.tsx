@@ -179,7 +179,7 @@ export const DailyLog = () => {
   const isToday = currentDate === format(new Date(), 'yyyy-MM-dd')
 
   return (
-    <div className="p-4 pb-20">
+    <div className="p-4">
       {/* Date Navigation */}
       <div className="flex items-center justify-between mb-6">
         <button

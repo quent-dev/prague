@@ -60,7 +60,7 @@ export const Dashboard = () => {
   const trendData7Days = prepareTrendData(dailyEntries, 7)
 
   return (
-    <div className="p-4 pb-20">
+    <div className="p-4">
       <h1 className="text-2xl font-bold text-dark-text-primary mb-6">Progress Dashboard</h1>
       
       {/* Overall Stats */}

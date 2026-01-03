@@ -118,7 +118,7 @@ export const Settings = () => {
     input.click()
   }
   return (
-    <div className="p-4 pb-20">
+    <div className="p-4">
       <h1 className="text-2xl font-bold text-dark-text-primary mb-6">Settings</h1>
       
       {/* Status Messages */}
