@@ -295,8 +295,11 @@ export const DailyLog = () => {
             </label>
             <input
               type="number"
-              value={formData.pages_read}
-              onChange={(e) => setFormData(prev => ({ ...prev, pages_read: parseInt(e.target.value) || 0 }))}
+              value={formData.pages_read || ''}
+              onChange={(e) => setFormData(prev => ({ 
+                ...prev, 
+                pages_read: e.target.value === '' ? 0 : parseInt(e.target.value) || 0 
+              }))}
               min="0"
               placeholder="10"
               className="w-full px-3 py-2 bg-dark-surface border border-dark-border text-dark-text-primary rounded-lg focus:ring-2 focus:ring-accent-primary focus:border-accent-primary placeholder:text-dark-text-muted"
@@ -410,8 +413,11 @@ export const DailyLog = () => {
             </label>
             <input
               type="number"
-              value={formData.dog_training_minutes}
-              onChange={(e) => setFormData(prev => ({ ...prev, dog_training_minutes: parseInt(e.target.value) || 0 }))}
+              value={formData.dog_training_minutes || ''}
+              onChange={(e) => setFormData(prev => ({ 
+                ...prev, 
+                dog_training_minutes: e.target.value === '' ? 0 : parseInt(e.target.value) || 0 
+              }))}
               min="0"
               placeholder="30"
               className="w-full px-3 py-2 bg-dark-surface border border-dark-border text-dark-text-primary rounded-lg focus:ring-2 focus:ring-accent-primary focus:border-accent-primary placeholder:text-dark-text-muted"

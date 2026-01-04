@@ -61,13 +61,13 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
 
   if (mode === 'welcome') {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
+      <div className="min-h-screen bg-dark-bg flex items-center justify-center p-4">
+        <div className="bg-dark-card border border-dark-border rounded-xl p-8 w-full max-w-md">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            <h1 className="text-3xl font-bold text-dark-text-primary mb-2">
               Welcome to Prague Tracker
             </h1>
-            <p className="text-gray-600">
+            <p className="text-dark-text-secondary">
               Your 30-day health and lifestyle challenge tracker
             </p>
           </div>
@@ -75,21 +75,21 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
           <div className="space-y-4">
             <button
               onClick={() => setMode('create')}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="w-full bg-accent-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
             >
               Start New Challenge
             </button>
             
             <button
               onClick={() => setMode('join')}
-              className="w-full bg-gray-100 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+              className="w-full bg-dark-surface text-dark-text-primary border border-dark-border py-3 px-4 rounded-lg hover:bg-dark-border transition-colors font-medium"
             >
               Continue on Another Device
             </button>
           </div>
 
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-dark-text-muted">
               No account needed • Data syncs across devices
             </p>
           </div>
@@ -100,13 +100,13 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
 
   if (mode === 'create') {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
+      <div className="min-h-screen bg-dark-bg flex items-center justify-center p-4">
+        <div className="bg-dark-card border border-dark-border rounded-xl p-8 w-full max-w-md">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-bold text-dark-text-primary mb-2">
               Start Your Challenge
             </h2>
-            <p className="text-gray-600">
+            <p className="text-dark-text-secondary">
               We'll create a secure session to track your progress
             </p>
           </div>
@@ -124,14 +124,14 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
               <button
                 onClick={handleCreateSession}
                 disabled={isLoading}
-                className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 tap-target focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-accent-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 tap-target focus:outline-none focus:ring-2 focus:ring-accent-primary"
               >
                 Create My Challenge
               </button>
             
               <button
                 onClick={() => setMode('welcome')}
-                className="w-full text-gray-600 py-2 hover:text-gray-800 transition-colors tap-target focus:outline-none focus:ring-2 focus:ring-gray-400 rounded"
+                className="w-full text-dark-text-secondary py-2 hover:text-dark-text-primary transition-colors tap-target focus:outline-none focus:ring-2 focus:ring-accent-primary rounded"
               >
                 ← Back
               </button>
@@ -139,7 +139,7 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
           )}
 
           <div className="mt-6 text-center">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-dark-text-muted">
               Your data is stored securely and can be accessed from any device with your pairing code
             </p>
           </div>
@@ -150,13 +150,13 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
 
   if (mode === 'join') {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
+      <div className="min-h-screen bg-dark-bg flex items-center justify-center p-4">
+        <div className="bg-dark-card border border-dark-border rounded-xl p-8 w-full max-w-md">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-bold text-dark-text-primary mb-2">
               Continue Your Challenge
             </h2>
-            <p className="text-gray-600">
+            <p className="text-dark-text-secondary">
               Enter your 8-digit pairing code
             </p>
           </div>
@@ -169,7 +169,7 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
 
           <form onSubmit={handleJoinSession} className="space-y-4">
             <div>
-              <label htmlFor="joinCode" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="joinCode" className="block text-sm font-medium text-dark-text-secondary mb-1">
                 Pairing Code or QR Code Data
               </label>
               <textarea
@@ -178,9 +178,9 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
                 onChange={(e) => setJoinCode(e.target.value)}
                 placeholder="ABC12DEF or paste QR code data"
                 rows={3}
-                className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-sm"
+                className="w-full px-3 py-3 bg-dark-surface border border-dark-border text-dark-text-primary rounded-lg focus:ring-2 focus:ring-accent-primary focus:border-accent-primary placeholder:text-dark-text-muted text-center text-sm"
               />
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="text-xs text-dark-text-muted mt-1">
                 Enter the 8-digit code or paste QR code data from another device
               </p>
             </div>
@@ -188,7 +188,7 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
             <button
               type="submit"
               disabled={isLoading || joinCode.trim().length === 0}
-              className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50"
+              className="w-full bg-accent-primary text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50"
             >
               {isLoading ? 'Joining...' : 'Continue Challenge'}
             </button>
@@ -196,14 +196,14 @@ export const SessionWelcome = ({ onSessionReady }: SessionWelcomeProps) => {
             <button
               type="button"
               onClick={() => setMode('welcome')}
-              className="w-full text-gray-600 py-2 hover:text-gray-800 transition-colors"
+              className="w-full text-dark-text-secondary py-2 hover:text-dark-text-primary transition-colors"
             >
               ← Back
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-dark-text-muted">
               You can find your pairing code in the settings of your other device
             </p>
           </div>
